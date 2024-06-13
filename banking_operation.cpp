@@ -7,10 +7,9 @@
 using namespace std;
 
 class Bank{
-    
-    public:
     int x,y,valid=0;
     char pass[20];
+    public:
     Bank(){
         do{
         cout<<"Enter the initial amount: ";
