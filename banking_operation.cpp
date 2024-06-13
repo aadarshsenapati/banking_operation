@@ -1,6 +1,7 @@
 //Banking operation
-//Header files
+
 #include<iostream>
+#include<fstream>
 #include<conio.h>
 #include<string.h>
 
@@ -10,6 +11,7 @@ class Bank{
     int x,y,valid=0;
     char pass[20];
     public:
+    
     Bank(){
         do{
         cout<<"Enter the initial amount: ";
@@ -17,6 +19,7 @@ class Bank{
         if(x<1000)
             cout<<"\nThe mimimum balance should be 1000\n";
         }while(x<=1000);
+        passbook();
         cout<<"Enter the password: ";
         int i;
         for(i=0;i!=20;i++){
@@ -26,6 +29,7 @@ class Bank{
             cout<<"*";
         }
         pass[i]='\0';
+        save_pass();
     }
     void deposite(){
         check_password();
@@ -34,6 +38,8 @@ class Bank{
         cin>>y;
         x=x+y;
         }
+        valid=0;
+        passbook();
     }
     void withdraw(){
         check_password();
@@ -46,12 +52,15 @@ class Bank{
             x=x-y;
         }
         }
+        valid=0;
+        passbook();
     }
     void check_bal(){
         check_password();
         if(valid==1){
         cout<<"\nYour balance is: \n"<<x;
         }
+        valid=0;
     }
     void check_password(){
         char check[20];
@@ -83,6 +92,18 @@ class Bank{
         }
         pass[i]='\0';
         }
+        valid=0;
+        save_pass();
+    }
+    void passbook(){
+        ofstream book("passbook.txt", ios::app);
+        book << "Balance: " << x << endl;
+        book.close();
+    }
+    void save_pass(){
+        ofstream detail("details.txt");
+        detail << "Password: " << pass << endl;
+        detail.close();
     }
 };
 
@@ -112,4 +133,5 @@ main(){
             break;
     }
     }while(cont==1);
+    
 }
