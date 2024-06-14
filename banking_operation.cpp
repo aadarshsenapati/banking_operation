@@ -76,7 +76,7 @@ class Bank{
         if(strcmp(pass,check)==0){
             valid=1;
         }else{
-            cout<<"\nInvalid\n";
+            cout<<"\nIncorrect Password\n";
         }
     }
     void change_pass(){
@@ -105,6 +105,14 @@ class Bank{
         detail << "Password: " << pass << endl;
         detail.close();
     }
+    void clear_passbook(){
+        check_password();
+        if(valid==1){
+        ofstream book("passbook.txt");
+        book << "Balance: " << 0;
+        book.close();
+        }
+    }
 };
 
 main(){
@@ -112,7 +120,7 @@ main(){
     int temp,cont=1;
     do
     {
-    cout<<"\n***********MENU************\n1.Check balance\n2.Deposite\n3.Withdraw\n4.Change password\n5.exit\nWhat do you want to do: ";
+    cout<<"\n***********MENU************\n1.Check balance\n2.Deposite\n3.Withdraw\n4.Change password\n5.Clear passbook\n6.Exit\nWhat do you want to do: ";
     cin>>temp;
     
     switch(temp){
@@ -129,6 +137,9 @@ main(){
             obj.change_pass();
             break;
         case 5:
+            obj.clear_passbook();
+            break;
+        case 6:
             cont=0;
             break;
     }
